@@ -1,4 +1,4 @@
-package auth;
+package com.t0pz.book.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

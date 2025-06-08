@@ -1,12 +1,12 @@
-package auth;
+package com.t0pz.book.auth;
 
 import com.t0pz.book.role.RoleRepository;
 import com.t0pz.book.user.Token;
 import com.t0pz.book.user.TokenRepository;
 import com.t0pz.book.user.User;
 import com.t0pz.book.user.UserRepository;
-import email.EmailService;
-import email.EmailTemplateName;
+import com.t0pz.book.email.EmailService;
+import com.t0pz.book.email.EmailTemplateName;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +27,14 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
 
-    @Value("${application.mailing.frontend.activation-url}")
-    private final String activationUrl;
+    @Value("${spring.application.mailing.frontend.activation-url}")
+    private String activationUrl;
 
     public void register(RegistrationRequest request) throws MessagingException {
         var userRole = roleRepository.findByName("USER")
                 // todo - better exception handling
                 .orElseThrow(() -> new IllegalStateException("ROLE USER was not initiated"));
+
         var user = User.builder()
                 .firstname(request.getFirstName())
                 .lastname(request.getLastName())

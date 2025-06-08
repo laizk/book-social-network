@@ -1,4 +1,4 @@
-package email;
+package com.t0pz.book.email;
 
 import lombok.Getter;
 
