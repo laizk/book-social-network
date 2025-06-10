@@ -1,5 +1,6 @@
 package com.t0pz.book.feedback;
 
+import com.t0pz.book.book.Book;
 import com.t0pz.book.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,9 @@ import lombok.experimental.SuperBuilder;
 public class Feedback extends BaseEntity {
 
     private Double note; //1-5 starts
-
     private String comment;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 }
