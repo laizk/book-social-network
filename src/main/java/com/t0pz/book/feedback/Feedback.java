@@ -1,8 +1,7 @@
-package com.t0pz.book.book;
+package com.t0pz.book.feedback;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,27 +10,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Book {
+public class Feedback {
 
     @Id
     @GeneratedValue
     private Integer id;
 
-    private String title;
+    private Double note; //1-5 starts
 
-    private String authorName;
+    private String comment;
 
-    private String isbn;
-
-    private String synopsis;
-
-    private String bookCover;
-
-    private boolean archived;
-
-    private boolean shareable;
-
-    @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
