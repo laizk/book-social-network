@@ -170,7 +170,7 @@ public class BookService {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("No book found with the ID:: " + bookId));
         if(book.isArchived() || !book.isShareable()) {
-            throw new OperationNotPermittedException("The requested book cannot be borrwed since it is either archived or not shareable.");
+            throw new OperationNotPermittedException("The requested book cannot be borrowed since it is either archived or not shareable.");
         }
         User user = ((User) connectedUser.getPrincipal());
         if(Objects.equals(book.getOwner().getId(), user.getId())) {
