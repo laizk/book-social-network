@@ -48,5 +48,4 @@ public class BookController {
     ) {
         return ResponseEntity.ok(service.findAllBooksByOwner(page, size, connectedUser));
     }
-    )
 }
