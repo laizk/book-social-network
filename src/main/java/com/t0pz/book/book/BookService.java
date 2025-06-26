@@ -1,6 +1,8 @@
 package com.t0pz.book.book;
 
 import com.t0pz.book.common.PageResponse;
+import com.t0pz.book.history.BookTransactionHistory;
+import com.t0pz.book.history.BookTransactionHistoryRepository;
 import com.t0pz.book.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import static com.t0pz.book.book.BookSpecification.*;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final BookMapper bookMapper;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
@@ -69,6 +72,24 @@ public class BookService {
                 books.getTotalPages(),
                 books.isFirst(),
                 books.isLast()
+        );
+    }
+
+    public PageResponse<BorrwedBookResponse> findAllBorrowedBooks(int page, int size, Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<BookTransactionHistory> allBorrowedBooks = bookTransactionHistoryRepository.findAllBorrowedBooks(pageable, user.getId());
+        List<BorrwedBookResponse> bookResponse = allBorrowedBooks.stream()
+                .map(bookMapper::toBorrowedBookResponse)
+                .toList();
+        return new PageResponse<>(
+                bookResponse,
+                allBorrowedBooks.getNumber(),
+                allBorrowedBooks.getSize(),
+                allBorrowedBooks.getTotalElements(),
+                allBorrowedBooks.getTotalPages(),
+                allBorrowedBooks.isFirst(),
+                allBorrowedBooks.isLast()
         );
     }
 }
