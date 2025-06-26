@@ -52,7 +52,7 @@ public class BookController {
     }
 
     @GetMapping("/borrowed")
-    public ResponseEntity<PageResponse<BorrwedBookResponse>> findAllBorrowedBooks(
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllBorrowedBooks(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
             Authentication connectedUser
@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @GetMapping("/returned")
-    public ResponseEntity<PageResponse<BorrwedBookResponse>> findAllReturnedBooks(
+    public ResponseEntity<PageResponse<BorrowedBookResponse>> findAllReturnedBooks(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
             @RequestParam(name = "size", defaultValue = "10", required = false) int size,
             Authentication connectedUser
