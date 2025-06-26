@@ -1,5 +1,6 @@
 package com.t0pz.book.book;
 
+import com.t0pz.book.file.FileUtils;
 import com.t0pz.book.history.BookTransactionHistory;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,7 @@ public class BookMapper {
                 .rate(book.getRate())
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
-                // todo implement this later
-                //.cover()
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 
